@@ -33,17 +33,16 @@ module.exports = {
     const id = req.params.id;
     getUserByUserId(id, (err, results) => {
       if (err) {
-        console.log(err);
         return;
       }
       if (!results) {
-        return res.json({
+        return res.status(404).json({
           success: 0,
           message: "Record not Found",
         });
       }
       results.password = undefined;
-      return res.json({
+      return res.status(200).json({
         success: 1,
         data: results,
       });
@@ -55,7 +54,7 @@ module.exports = {
         console.log(err);
         return;
       }
-      return res.json({
+      return res.status(200).json({
         success: 1,
         data: results,
       });
@@ -68,7 +67,7 @@ module.exports = {
         console.log(err);
       }
       if (!results) {
-        return res.json({
+        return res.status(401).json({
           success: 0,
           data: "Invalid email or password",
         });
@@ -79,13 +78,13 @@ module.exports = {
         const jsontoken = sign({ result: results }, process.env.SIGN_KEY, {
           expiresIn: "1h",
         });
-        return res.json({
+        return res.status(200).json({
           success: 1,
-          message: "login sucessful",
+          message: "Login sucessful",
           token: jsontoken,
         });
       } else {
-        return res.json({
+        return res.status(401).json({
           success: 0,
           data: "Invalid password or email",
         });
@@ -101,7 +100,7 @@ module.exports = {
         console.log(err);
         return;
       }
-      return res.json({
+      return res.status(200).json({
         success: 1,
         message: "Updated successfully",
       });
@@ -110,17 +109,18 @@ module.exports = {
   deleteUser: (req, res) => {
     const data = req.body;
     deleteUser(data, (err, results) => {
+      console.log(results);
       if (err) {
         console.log(err);
         return;
       }
       if (!results) {
-        return res.json({
+        return res.status(404).json({
           success: 0,
           message: "Record Not Found",
         });
       }
-      return res.json({
+      return res.status(200).json({
         success: 1,
         message: "user deleted successfully",
       });

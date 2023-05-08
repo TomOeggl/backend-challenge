@@ -41,7 +41,7 @@ module.exports = {
     pool.query(
       `delete from registration where id = ?`,
       [data.id],
-      handleResponseUnique(callBack)
+      handleResponseMultiple(callBack)
     );
   },
 };

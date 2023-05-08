@@ -14,7 +14,7 @@ router.post("/", checkToken, createUser);
 router.post("/login", login);
 
 router.get("/", getUsers);
-router.get("/:id", checkToken, getUserByUserId);
+router.get("/:id", requireAdmin, getUserByUserId);
 
 router.patch("/", checkToken, updateUser);
 
