@@ -11,47 +11,32 @@ module.exports = {
   },
   getEvents: (callBack) => {
     pool.query(
-      `select name, start_time_and_date, end_time_and_date, description, location_id, event_type, ticket_link from Event`,
+      `select id, name, start_time_and_date, end_time_and_date, description, location_id, event_type, ticket_link from Event`,
       [],
       handleResponseMultiple(callBack)
     );
   },
-  /*
-  getUserByUserEmail: (email, callBack) => {
+  getEventById: (id, callBack) => {
     pool.query(
-      `select * from registration where email = ?`,
-      [email],
-      handleResponseUnique(callBack)
-    );
-  },
-  getUserByUserId: (id, callBack) => {
-    pool.query(
-      `select id,username,email from registration where id = ?`,
+      `select name, start_time_and_date, end_time_and_date, description, location_id, event_type, ticket_link from Event where id = ?`,
       [id],
       handleResponseUnique(callBack)
     );
   },
-  getUsers: (callBack) => {
+  updateEvent: (data, callBack) => {
     pool.query(
-      `select id,username,email from registration`,
-      [],
+      `update Event set name=?, start_time_and_date=?, end_time_and_date=?, description=?, location_id=?, event_type=?, ticket_link=? where id = ?`,
+      [data.name, data.startTimeAndDate, data.endTimeAndDate, data.description, data.locationId, data.eventType, data.ticketLink, data.id],
       handleResponseMultiple(callBack)
     );
   },
-  updateUser: (data, callBack) => {
+  deleteEvent: (data, callBack) => {
     pool.query(
-      `update registration set username=?, email=?, password=? where id = ?`,
-      [data.username, data.email, data.password, data.id],
-      handleResponseUnique(callBack)
-    );
-  },
-  deleteUser: (data, callBack) => {
-    pool.query(
-      `delete from registration where id = ?`,
+      `delete from Event where id = ?`,
       [data.id],
       handleResponseMultiple(callBack)
     );
-  },*/
+  },
 };
 
 function handleResponseMultiple(callBack) {
