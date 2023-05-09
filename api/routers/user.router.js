@@ -1,21 +1,20 @@
 const {
   createUser,
-  getUsers,
-  getUserByUserId,
+  getUserById,
   login,
   updateUser,
   deleteUser,
-  signUp,
-} = require("./user.controller");
+  getAllUsers,
+} = require("../controllers/user.controller");
 const router = require("express").Router();
 const { checkToken } = require("../../auth/token_validation");
-const { requireAdmin } = require("../../auth/admin_valitation")
+const { requireAdmin } = require("../../auth/admin_valitation");
 
 router.post("/", checkToken, createUser);
 router.post("/login", login);
 
-router.get("/", getUsers);
-router.get("/:id", requireAdmin, getUserByUserId);
+router.get("/", getAllUsers);
+router.get("/:id", requireAdmin, getUserById);
 
 router.patch("/", checkToken, updateUser);
 

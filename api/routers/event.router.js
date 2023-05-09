@@ -1,4 +1,4 @@
-const { createEvent, getEvents, getEventById, updateEvent, deleteEvent } = require("./event.controller");
+const { createEvent, getEvents, getEventById, updateEvent, deleteEvent } = require("../controllers/event.controller");
 const router = require("express").Router();
 
 const { checkToken } = require("../../auth/token_validation");
@@ -11,6 +11,6 @@ router.post("/", requireAdmin, createEvent);
 
 router.patch("/", requireAdmin, updateEvent);
 
-router.delete("/", requireAdmin, deleteEvent)
+router.delete("/", requireAdmin, deleteEvent);
 
 module.exports = router;

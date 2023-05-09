@@ -1,8 +1,8 @@
 require("dotenv").config();
 const express = require("express");
 const app = express();
-const userRouter = require("./api/users/user.router");
-const eventRouter = require("./api/events/event.router");
+const userRouter = require("./api/routers/user.router");
+const eventRouter = require("./api/routers/event.router");
 
 app.use(express.json());
 

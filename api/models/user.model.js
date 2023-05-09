@@ -13,28 +13,28 @@ module.exports = {
       handleResponseMultiple(callBack)
     );
   },
-  getUserByUserEmail: (email, callBack) => {
+  getByEmail: (email, callBack) => {
     pool.query(
       `select * from registration where email = ?`,
       [email],
       handleResponseUnique(callBack)
     );
   },
-  getUserByUserId: (id, callBack) => {
+  getById: (id, callBack) => {
     pool.query(
       `select id,username,email from registration where id = ?`,
       [id],
       handleResponseUnique(callBack)
     );
   },
-  getUsers: (callBack) => {
+  getAll: (callBack) => {
     pool.query(
       `select id,username,email from registration`,
       [],
       handleResponseMultiple(callBack)
     );
   },
-  updateUser: (data, callBack) => {
+  update: (data, callBack) => {
     const salt = genSaltSync(10);
     data.password = hashSync(data.password, salt);
     pool.query(
@@ -43,7 +43,7 @@ module.exports = {
       handleResponseUnique(callBack)
     );
   },
-  deleteUser: (data, callBack) => {
+  delete: (data, callBack) => {
     pool.query(
       `delete from registration where id = ?`,
       [data.id],

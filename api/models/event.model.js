@@ -9,28 +9,28 @@ module.exports = {
       handleResponseMultiple(callBack)
     );
   },
-  getEvents: (callBack) => {
+  getAll: (callBack) => {
     pool.query(
       `select id, name, start_time_and_date, end_time_and_date, description, location_id, event_type, ticket_link from Event`,
       [],
       handleResponseMultiple(callBack)
     );
   },
-  getEventById: (id, callBack) => {
+  getById: (id, callBack) => {
     pool.query(
       `select name, start_time_and_date, end_time_and_date, description, location_id, event_type, ticket_link from Event where id = ?`,
       [id],
       handleResponseUnique(callBack)
     );
   },
-  updateEvent: (data, callBack) => {
+  update: (data, callBack) => {
     pool.query(
       `update Event set name=?, start_time_and_date=?, end_time_and_date=?, description=?, location_id=?, event_type=?, ticket_link=? where id = ?`,
       [data.name, data.startTimeAndDate, data.endTimeAndDate, data.description, data.locationId, data.eventType, data.ticketLink, data.id],
       handleResponseMultiple(callBack)
     );
   },
-  deleteEvent: (data, callBack) => {
+  delete: (data, callBack) => {
     pool.query(
       `delete from Event where id = ?`,
       [data.id],
