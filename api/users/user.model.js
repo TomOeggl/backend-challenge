@@ -1,7 +1,11 @@
 const pool = require("../../config/database");
 
+const { genSaltSync, hashSync, compareSync } = require("bcrypt");
+
 module.exports = {
   create: (data, callBack) => {
+    const salt = genSaltSync(10);
+    data.password = hashSync(data.password, salt);
     pool.query(
       `insert into registration(username, email, password)
                 values(?, ?, ?)`,
@@ -31,6 +35,8 @@ module.exports = {
     );
   },
   updateUser: (data, callBack) => {
+    const salt = genSaltSync(10);
+    data.password = hashSync(data.password, salt);
     pool.query(
       `update registration set username=?, email=?, password=? where id = ?`,
       [data.username, data.email, data.password, data.id],

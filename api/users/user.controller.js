@@ -6,16 +6,14 @@ const {
   updateUser,
   deleteUser,
   getUserByUserEmail,
-} = require("./user.service");
+  signUp
+} = require("./user.model");
 const { genSaltSync, hashSync, compareSync } = require("bcrypt");
 const { sign } = require("jsonwebtoken");
 
 module.exports = {
   createUser: (req, res) => {
-    const body = req.body;
-    const salt = genSaltSync(10);
-    body.password = hashSync(body.password, salt);
-    create(body, (err, results) => {
+    create(req.body, (err, results) => {
       if (err) {
         console.log(err);
         return res.status(500).json({
@@ -92,10 +90,7 @@ module.exports = {
     });
   },
   updateUser: (req, res) => {
-    const body = req.body;
-    const salt = genSaltSync(10);
-    body.password = hashSync(body.password, salt);
-    updateUser(body, (err, results) => {
+    updateUser(req.body, (err, results) => {
       if (err) {
         console.log(err);
         return;
@@ -107,8 +102,7 @@ module.exports = {
     });
   },
   deleteUser: (req, res) => {
-    const data = req.body;
-    deleteUser(data, (err, results) => {
+    deleteUser(req.body, (err, results) => {
       console.log(results);
       if (err) {
         console.log(err);

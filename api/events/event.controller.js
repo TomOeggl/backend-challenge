@@ -1,4 +1,4 @@
-const { create, getEvents, getEventById, updateEvent, deleteEvent } = require("./event.service");
+const { create, getEvents, getEventById, updateEvent, deleteEvent } = require("./event.model");
 
 module.exports = {
   createEvent: (req, res) => {
@@ -40,7 +40,6 @@ module.exports = {
           message: "Event not found",
         });
       }
-      results.password = undefined;
       return res.status(200).json({
         success: 1,
         data: results,
