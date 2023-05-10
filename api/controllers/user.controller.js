@@ -18,7 +18,7 @@ module.exports = {
   },
   getAllUsers: (req, res) => {
     user.getAll((err, results) => {
-      generic.handleGetAll(err, results, res);
+      generic.handleGetAllTest(err, results, res);
     });
   },
   updateUser: (req, res) => {

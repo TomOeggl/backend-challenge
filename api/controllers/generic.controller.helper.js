@@ -64,4 +64,18 @@ module.exports = {
       message: "Entry deleted successfully",
     });
   },
+  handleGetAllTest: (err, results, res) => {
+    if (err) {
+      console.log(err);
+      return;
+    }
+    res.render("userList", { data: results }, (renderErr, renderedHtml) => {
+      if (renderErr) {
+        console.log(renderErr);
+        return res.status(500).send('Error rendering template');
+      }
+      console.log(results);
+      return res.status(200).send(renderedHtml);
+    });
+  },
 };
