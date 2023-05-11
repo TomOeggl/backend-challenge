@@ -74,7 +74,6 @@ module.exports = {
         console.log(renderErr);
         return res.status(500).send('Error rendering template');
       }
-      console.log(results);
       return res.status(200).send(renderedHtml);
     });
   },

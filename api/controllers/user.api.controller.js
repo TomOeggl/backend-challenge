@@ -2,7 +2,7 @@ require("dotenv").config();
 const { compareSync } = require("bcrypt");
 const { sign } = require("jsonwebtoken");
 const user = require("../models/user.model");
-const generic = require("./generic.controller.helper");
+const generic = require("../../utils/generic.controller.helper");
 
 module.exports = {
   createUser: (req, res) => {
@@ -18,7 +18,7 @@ module.exports = {
   },
   getAllUsers: (req, res) => {
     user.getAll((err, results) => {
-      generic.handleGetAllTest(err, results, res);
+      generic.handleGetAll(err, results, res);
     });
   },
   updateUser: (req, res) => {
