@@ -1,0 +1,346 @@
+openapi: 3.0.0
+info:
+  title: Soundlabs APi
+  description: >-
+    Demo API for an event collective.  
+
+
+    Endpoints allow to create, update, get and delete Users and Events. It has a
+    login system and bearer auth through JSWT. Getting users by id as well as
+    all create, update and delete features require admin role for security.
+  version: 1.0.0
+servers:
+  - url: http://localhost:9000/api
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+tags:
+  - name: Users
+  - name: Events
+paths:
+  /users:
+    get:
+      tags:
+        - Users
+      summary: All users
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                success: 1
+                data:
+                  - id: 1
+                    username: technoTom
+                    email: technotom@gmail.com
+                  - id: 2
+                    username: houseHerbert
+                    email: houseyhouse@house.com
+    patch:
+      tags:
+        - Users
+      summary: Update user
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                id: 18
+                username: houseHerbert
+                email: houseyhouse@house.com
+                password: abgde
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                success: 1
+                message: Updated successfully
+    post:
+      tags:
+        - Users
+      summary: Create user
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                username: testuser
+                email: test@test.com
+                password: test
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                sucess: 1
+                data:
+                  fieldCount: 0
+                  affectedRows: 1
+                  insertId: 20
+                  serverStatus: 2
+                  warningCount: 0
+                  message: ''
+                  protocol41: true
+                  changedRows: 0
+  /users/:id:
+    get:
+      tags:
+        - Users
+      summary: User by Id
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                example-0:
+                  summary: Invalid Token
+                  value:
+                    success: 0
+                    message: Invalid token
+                example-1:
+                  summary: Success 200
+                  value:
+                    success: 1
+                    data:
+                      id: 2
+                      username: houseHerbert
+                      email: houseyhouse@house.com
+    delete:
+      tags:
+        - Users
+      summary: Delete user
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                success: 1
+                message: Entry deleted successfully
+  /users/login:
+    post:
+      tags:
+        - Users
+      summary: Login as default user
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                email: test@test.com
+                password: test
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                success: 1
+                message: Login sucessful
+                token: ...
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                success: 0
+                data: Invalid password or email
+
+    
+  /events:
+    get:
+      tags:
+        - Events
+      summary: All events
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                success: 1
+                data:
+                  - id: 1
+                    name: Resselrave 4000
+                    start_time_and_date: '2003-04-05T18:00:00.000Z'
+                    end_time_and_date: '2003-04-04T19:00:00.000Z'
+                    description: Hosted by rave-o-tron 9000
+                    location_id: 1
+                    event_type: soundlabs
+                    ticket_link: null
+    post:
+      tags:
+        - Events
+      summary: Create event
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                name: Resselrave 5000
+                startTimeAndDate: '2023-04-03 20:00:00'
+                endTimeAndDate: '2023-04-04 21:00:00'
+                description: Hosted by rave-o-tron 420
+                locationId: 1
+                eventType: soundlabs
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                example-0:
+                  summary: Success 200
+                  value:
+                    sucess: 1
+                    data:
+                      fieldCount: 0
+                      affectedRows: 1
+                      insertId: 4
+                      serverStatus: 2
+                      warningCount: 0
+                      message: ''
+                      protocol41: true
+                      changedRows: 0
+                example-1:
+                  summary: Invalid Token
+                  value:
+                    success: 0
+                    message: Invalid token
+    patch:
+      tags:
+        - Events
+      summary: Update event
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                id: 2
+                name: Resselrave 4000
+                startTimeAndDate: '2003-04-05 20:00:00'
+                endTimeAndDate: '2003-04-04 21:00:00'
+                description: Hosted by rave-o-tron 9000
+                locationId: 1
+                eventType: soundlabs
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                success: 1
+                message: Updated successfully
+    delete:
+      tags:
+        - Events
+      summary: Delete Event
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                success: 1
+                message: Entry deleted successfully
+  /events/:id:
+    get:
+      tags:
+        - Events
+      summary: Event by Id
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                success: 1
+                data:
+                  name: Resselrave 4000
+                  start_time_and_date: '2003-04-05T18:00:00.000Z'
+                  end_time_and_date: '2003-04-04T19:00:00.000Z'
+                  description: Hosted by rave-o-tron 9000
+                  location_id: 1
+                  event_type: soundlabs
+                  ticket_link: null
+  /events/full/:id:
+    get:
+      tags:
+        - Events
+      summary: Event by Id with DJs
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                success: 1
+                data:
+                  id: 1
+                  name: Resselrave 4000
+                  start_time_and_date: '2003-04-05T18:00:00.000Z'
+                  end_time_and_date: '2003-04-04T19:00:00.000Z'
+                  description: Hosted by rave-o-tron 9000
+                  location_id: 1
+                  event_type: soundlabs
+                  ticket_link: null
+                  djs:
+                    - id: 1
+                      name: Fatboy Slim
+                      social_links:
+                        tiktok: '@sehrslim'
+                    - id: 2
+                      name: Raul Schnappsbrenner
+                      social_links: {}

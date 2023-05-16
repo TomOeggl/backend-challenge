@@ -43,10 +43,10 @@ module.exports = {
       handleResponseUnique(callBack)
     );
   },
-  delete: (data, callBack) => {
+  delete: (id, callBack) => {
     pool.query(
       `delete from registration where id = ?`,
-      [data.id],
+      [id],
       handleResponseMultiple(callBack)
     );
   },

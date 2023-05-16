@@ -27,7 +27,8 @@ module.exports = {
     });
   },
   deleteUser: (req, res) => {
-    user.delete(req.body, (err, results) => {
+    const id = req.params.id;
+    user.delete(id, (err, results) => {
       generic.handleDelete(err, results, res);
     });
   },

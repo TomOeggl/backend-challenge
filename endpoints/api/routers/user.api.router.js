@@ -18,6 +18,6 @@ router.get("/:id", requireAdmin, getUserById);
 
 router.patch("/", checkToken, updateUser);
 
-router.delete("/", requireAdmin, deleteUser);
+router.delete("/:id", requireAdmin, deleteUser);
 
 module.exports = router;
