@@ -1,5 +1,4 @@
-create api endpoints for events, djs, hosts and locations
-write services, controllers and routes 
+add connected query (event + djs?) to api
+write documentation
 
-change to classbased structure?
-maybe drop hosts 
+create event view

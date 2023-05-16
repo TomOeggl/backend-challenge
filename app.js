@@ -1,8 +1,8 @@
 require("dotenv").config();
 const express = require("express");
 const app = express();
-const userApiRouter = require("./api/routers/user.api.router");
-const eventApiRouter = require("./api/routers/event.api.router");
+const userApiRouter = require("./endpoints/api/routers/user.api.router");
+const eventApiRouter = require("./endpoints/api/routers/event.api.router");
 const path = require("path");
 
 app.use(express.json());

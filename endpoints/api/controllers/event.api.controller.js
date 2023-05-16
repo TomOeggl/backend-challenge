@@ -1,5 +1,5 @@
-const event = require("../models/event.model");
-const generic = require("../../utils/generic.controller.helper");
+const event = require("../../common/models/event.model");
+const generic = require("../../common/utils/generic.controller.helper");
 
 module.exports = {
   createEvent: (req, res) => {

@@ -1,8 +1,8 @@
 require("dotenv").config();
 const { compareSync } = require("bcrypt");
 const { sign } = require("jsonwebtoken");
-const user = require("../models/user.model");
-const generic = require("../../utils/generic.controller.helper");
+const user = require("../../common/models/user.model");
+const generic = require("../../common/utils/generic.controller.helper");
 
 module.exports = {
   createUser: (req, res) => {
@@ -34,7 +34,7 @@ module.exports = {
   login: (req, res) => {
     const body = req.body;
     user.getByEmail(body.email, (err, results) => {
-      if (err) {
+      if (err) { 
         console.log(err);
       }
       if (!results) {
@@ -42,7 +42,7 @@ module.exports = {
           success: 0,
           data: "Invalid email or password",
         });
-      }
+      } 
       const result = compareSync(body.password, results.password);
       if (result) {
         results.password = undefined;
