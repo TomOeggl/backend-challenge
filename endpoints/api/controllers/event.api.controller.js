@@ -18,6 +18,12 @@ module.exports = {
       generic.handleGetById(err, results, res);
     });
   },
+  getEventByIdWithDJs: (req, res) => {
+    const id = req.params.id;
+    event.getByIdWithDJs(id, (err, results) => {
+      generic.handleGetById(err, results, res);
+    });
+  },
   updateEvent: (req, res) => {
     event.update(req.body, (err, results) => {
       generic.handleUpdate(err, results, res);
