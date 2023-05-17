@@ -1,4 +1,4 @@
-const event = require("../../common/models/event.model");
+const event = require("../../common/models/event.model.mysql");
 const generic = require("../../common/utils/generic.controller.helper");
 
 module.exports = {
