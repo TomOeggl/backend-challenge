@@ -1,6 +1,5 @@
 const { DataTypes } = require("sequelize");
 const sequelize = require("../../../config/sequelize");
-const Event = require("./Event");
 
 const Location = sequelize.define("Location", {
   id: {
@@ -36,7 +35,5 @@ const Location = sequelize.define("Location", {
     type: DataTypes.STRING(255),
   },
 });
-
-Location.BelongsToMany(Event);
 
 module.exports = Location;

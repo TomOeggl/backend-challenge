@@ -1,7 +1,5 @@
 const { DataTypes } = require("sequelize");
 const sequelize = require("../../../config/sequelize");
-const UserRole = require("./UserRole");
-const Artist = require("./Artist");
 
 const User = sequelize.define("User", {
   id: {
@@ -47,16 +45,7 @@ const User = sequelize.define("User", {
       },
     },
   },
-  userRoleId: {
-    type: DataTypes.INTEGER,
-    references: {
-      model: UserRole,
-      key: "id",
-    },
-  },
 });
 
-User.hasOne(UserRole);
-User.hasMany(Artist);
 
 module.exports = User;

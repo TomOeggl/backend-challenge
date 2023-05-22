@@ -1,7 +1,5 @@
 const { DataTypes } = require("sequelize");
 const sequelize = require("../../../config/sequelize");
-const Artist = require("./Artist");
-const Location = require("./Location");
 
 const Event = sequelize.define("Event", {
   id: {
@@ -45,26 +43,9 @@ const Event = sequelize.define("Event", {
       },
     },
   },
-  location_id: {
-    type: DataTypes.INTEGER,
-    references: {
-      model: Location,
-      key: "id",
-    },
-  },
-  eventType_id: {
-    type: DataTypes.INTEGER,
-    references: {
-      model: EventType,
-      key: "id",
-    },
-  },
   ticketLink: {
     type: DataTypes.STRING(255),
   },
 });
-
-Event.belongsToMany(Artist, { through: "EventArtists" });
-Event.hasOne(Location);
 
 module.exports = Event;

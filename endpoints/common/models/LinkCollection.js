@@ -1,20 +1,11 @@
 const { DataTypes } = require("sequelize");
 const sequelize = require("../../../config/sequelize");
-const Artist = require("./Artist");
 
 const LinkCollection = sequelize.define("LinkCollection", {
   id: {
     type: DataTypes.BIGINT.UNSIGNED,
     primaryKey: true,
     autoIncrement: true,
-  },
-  ArtistId: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-    references: {
-      model: Artist,
-      key: "id",
-    },
   },
   promoLink: {
     type: DataTypes.STRING(255),
@@ -42,6 +33,6 @@ const LinkCollection = sequelize.define("LinkCollection", {
   },
 });
 
-LinkCollection.belongsTo(Artist);
+
 
 module.exports = LinkCollection;

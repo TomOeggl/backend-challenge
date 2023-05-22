@@ -14,6 +14,7 @@ module.exports = {
           });
         } else {
           req.user = decoded;
+          req.userRoles = decoded.userRoles;
           next();
         }
       });
