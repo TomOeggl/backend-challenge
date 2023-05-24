@@ -1,7 +1,7 @@
 const router = require("express").Router();
 
 const { checkToken } = require("../../../auth/token_validation");
-const { requireAdmin } = require("../../../auth/admin_validation");
+const { requireAdmin } = require("../../../../server/src/middleware/adminValidation");
 const { createEvent, getEvents, getEventById, updateEvent, deleteEvent, getEventByIdWithDJs } = require("../controllers/event.api.controller");
 
 router.get("/", getEvents);

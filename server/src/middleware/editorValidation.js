@@ -1,4 +1,4 @@
-const { checkToken } = require("./token_validation");
+const { checkToken } = require("./tokenValidation");
 
 module.exports = {
   requireEditor(req, res, next) {

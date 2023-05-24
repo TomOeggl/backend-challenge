@@ -1,7 +1,7 @@
 const { DataTypes } = require("sequelize");
-const sequelize = require("../../../config/sequelize");
+const sequelize = require("../config/sequelize");
 
-const EventType = sequelize.define("EventType", {
+const Artist = sequelize.define("Artist", {
   id: {
     type: DataTypes.BIGINT.UNSIGNED,
     primaryKey: true,
@@ -23,4 +23,4 @@ const EventType = sequelize.define("EventType", {
 });
 
 
-module.exports = EventType;
+module.exports = Artist;

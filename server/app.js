@@ -2,18 +2,18 @@ require("dotenv").config();
 const express = require("express");
 const app = express();
 const cors = require("cors");
-const userApiRouter = require("./endpoints/api/routers/user.api.router");
-const eventApiRouter = require("./endpoints/api/routers/event.api.router");
+const userApiRouter = require("./src/routes/userRouter");
+//const eventApiRouter = require("./src/routes/event.api.router");
 const path = require("path");
-const sequelize = require("./config/sequelize");
-const User = require("./endpoints/common/models/User");
-const Artist = require("./endpoints/common/models/Artist");
-const Event = require("./endpoints/common/models/Event");
-const LinkCollection = require("./endpoints/common/models/LinkCollection");
-const Location = require("./endpoints/common/models/Location");
-const defineAssociatons = require ("./endpoints/common/models/associations");
-const UserRole = require("./endpoints/common/models/UserRole");
-const EventType = require("./endpoints/common/models/EventType");
+const sequelize = require("./src/config/sequelize");
+const User = require("./src/models/User");
+const Artist = require("./src/models/Artist");
+const Event = require("./src/models/Event");
+const LinkCollection = require("./src/models/LinkCollection");
+const Location = require("./src/models/Location");
+const defineAssociatons = require ("./src/models/associations");
+const UserRole = require("./src/models/UserRole");
+const EventType = require("./src/models/EventType");
 
 
 async function connectToDatabase() {
@@ -43,7 +43,7 @@ app.use(
   
   connectToDatabase();
   app.use("/api/users", userApiRouter);
-  app.use("/api/events", eventApiRouter);
+  //app.use("/api/events", eventApiRouter);
   
   let testUser;
   async function createTestUser(){

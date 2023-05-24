@@ -1,7 +1,7 @@
 const { DataTypes } = require("sequelize");
-const sequelize = require("../../../config/sequelize");
+const sequelize = require("../config/sequelize");
 
-const User = sequelize.define("User", {
+const Location = sequelize.define("Location", {
   id: {
     type: DataTypes.BIGINT.UNSIGNED,
     primaryKey: true,
@@ -10,7 +10,6 @@ const User = sequelize.define("User", {
   name: {
     type: DataTypes.STRING(255),
     allowNull: false,
-    unique: true,
     validate: {
       notNull: {
         msg: "The name field cannot be null.",
@@ -20,20 +19,7 @@ const User = sequelize.define("User", {
       },
     },
   },
-  email: {
-    type: DataTypes.STRING(255),
-    allowNull: false,
-    unique: true,
-    validate: {
-      notNull: {
-        msg: "The email field cannot be null.",
-      },
-      isEmail: {
-        msg: "Please provide a valid email address.",
-      },
-    },
-  },
-  password: {
+  address: {
     type: DataTypes.STRING(255),
     allowNull: false,
     validate: {
@@ -44,8 +30,10 @@ const User = sequelize.define("User", {
         msg: "The name field cannot be empty.",
       },
     },
+  },
+  comment: {
+    type: DataTypes.STRING(255),
   },
 });
 
-
-module.exports = User;
+module.exports = Location;

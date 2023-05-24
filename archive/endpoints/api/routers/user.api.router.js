@@ -1,6 +1,6 @@
 const router = require("express").Router();
 const { checkToken } = require("../../../auth/token_validation");
-const { requireAdmin } = require("../../../auth/admin_validation");
+const { requireAdmin } = require("../../../../server/src/middleware/adminValidation");
 const { requireEditor } = require("../../../auth/editor_validation");
 const {
   createUser,
@@ -9,7 +9,7 @@ const {
   updateUser,
   deleteUser,
   getAllUsers,
-} = require("../controllers/userApiController");
+} = require("../../../../server/src/controllers/userController");
 
 router.post("/", requireEditor, createUser);
 router.post("/login", login);

@@ -1,9 +1,9 @@
 require("dotenv").config();
 const { compareSync, genSaltSync, hashSync } = require("bcrypt");
 const { sign } = require("jsonwebtoken");
-const User = require("../../common/models/User");
-const UserRole = require("../../common/models/UserRole");
-const generic = require("../../common/utils/generic.controller.helper");
+const User = require("../models/User");
+const UserRole = require("../models/UserRole");
+const generic = require("../../../archive/endpoints/common/utils/generic.controller.helper");
 
 module.exports = {
   createUser: async (req, res) => {
