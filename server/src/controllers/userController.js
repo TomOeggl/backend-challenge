@@ -9,19 +9,17 @@ const generic = require("../../../archive/endpoints/common/utils/generic.control
 module.exports = {
   createUser: async (req, res) => {
     try {
-      await userService.createUser(req, res);
+      const user = await userService.createUser(req, res);
+      if (user) res.status(200).json({ message: "User created successfully" });
     } catch (error) {
       console.error("Error creating user:", error);
       res.status(500).json({ message: "Failed to create user" });
     }
   },
   getUserById: async (req, res) => {
-    const id = req.params.id;
     try {
-      const user = await User.findOne({
-        where: { id: id },
-        include: [{ model: UserRole }],
-      });
+      const user = await userService.getUserById(req, res);
+
       res.status(200).json({
         success: 1,
         data: user,
@@ -34,30 +32,88 @@ module.exports = {
       });
     }
   },
-  getAllUsers: (req, res) => {
-    user.getAll((err, results) => {
-      generic.handleGetAll(err, results, res);
-    });
-  },
-  updateUser: (req, res) => {
-    user.update(req.body, (err, results) => {
-      generic.handleUpdate(err, results, res);
-    });
-  },
-  deleteUser: (req, res) => {
-    const id = req.params.id;
-    user.delete(id, (err, results) => {
-      generic.handleDelete(err, results, res);
-    });
-  },
-  login: async (req, res) => {
+  getAllUsers: async (req, res) => {
     try {
-      await userService.login(req, res);
+      const users = await userService.getAllUsers();
+      res.status(200).json({
+        success: 1,
+        data: users,
+      });
     } catch (error) {
-      console.error("Error during login:", error);
+      console.error("Error during request:", error);
       return res.status(500).json({
         success: 0,
-        message: "Failed to login",
+        message: "Failed to retrieve users",
+      });
+    }
+  },
+  updateUser: async (req, res) => {
+    try {
+      const updates = req.body;
+      const id = updates.id;
+      updates.id = undefined;
+      const user = await userService.updateUser(id, updates);
+
+      return res.status(200).json({
+        success: 1,
+        message: "User updated successfully",
+        data: user,
+      });
+    } catch (error) {
+      console.error("Error during user update:", error);
+      return res.status(500).json({
+        success: 0,
+        message: error.message,
+      });
+    }
+},
+  deleteUser: async (req, res) => {
+    try {
+      const id = req.body.id;
+      await userService.deleteUser(id);
+
+      return res.status(200).json({
+        success: 1,
+        message: "User deleted successfully",
+      });
+    } catch (error) {
+      console.error("Error during user deletion:", error);
+      return res.status(500).json({
+        success: 0,
+        message: error.message,
+      });
+    }
+},
+  login: async (req, res) => {
+    try {
+      const { email, password } = req.body;
+      const user = await userService.login(email, password);
+
+      const token = sign(
+        { userId: user.id, userRoles: user.UserRole },
+        process.env.SIGN_KEY,
+        {
+          expiresIn: "1h",
+        }
+      );
+
+      return res.status(200).json({
+        success: 1,
+        message: "Login successful",
+        token: token,
+      });
+    } catch (error) {
+      let message = "Failed to login";
+      if (
+        error.message === "User not found" ||
+        error.message === "Invalid password"
+      ) {
+        message = error.message;
+      }
+      console.error("Error during login:", error);
+      return res.status(401).json({
+        success: 0,
+        message: message,
       });
     }
   },
