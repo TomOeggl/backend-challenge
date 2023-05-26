@@ -1,5 +1,5 @@
 const User = require("../models/User");
-const UserRole = require("../models/UserRole");
+const Role = require("../models/Role");
 const { compareSync, genSaltSync, hashSync } = require("bcrypt");
 const { sign } = require("jsonwebtoken");
 
@@ -9,14 +9,14 @@ module.exports = {
 
     const user = await User.findOne({
       where: { id: id },
-      include: [{ model: UserRole }],
+      include: [{ model: Role }],
     });
     user.password = undefined;
     return user;
   },
   getAllUsers: async () => {
     const users = await User.findAll({
-      include: [{ model: UserRole }],
+      include: [{ model: Role }],
     });
     users.forEach((user) => {
       user.password = undefined;
@@ -25,25 +25,34 @@ module.exports = {
     return users;
   },
   createUser: async (req, res) => {
-    let { name, email, password } = req.body;
+    let { name, email, password, roles } = req.body;
     const salt = genSaltSync(10);
     password = hashSync(password, salt);
-
+  
     const user = await User.create({
       name: name,
       email: email,
       password: password,
     });
-
-    await UserRole.create({
-      UserId: user.id,
-    });
+  
+    if (roles && roles.length > 0) {
+      const foundRoles = await Role.findAll({ 
+          where: { 
+              name: roles
+          } 
+      });
+  
+      for (const role of foundRoles) {
+        await user.addRole(role);
+      }
+    }
+  
     return user;
   },
   updateUser: async (id, updates) => {
     const user = await User.findOne({
       where: { id },
-      include: [{ model: UserRole }],
+      include: [{ model: Role }],
     });
 
     if (!user) {
@@ -67,7 +76,7 @@ module.exports = {
   login: async (email, password) => {
     const user = await User.findOne({
       where: { email },
-      include: [{ model: UserRole }],
+      include: [{ model: Role }],
     });
 
     if (!user) {
@@ -80,6 +89,18 @@ module.exports = {
       throw new Error("Invalid password");
     }
 
-    return user;
+    user.password = undefined;
+
+    const roles = user.Roles.map((role) => role.name);
+
+    const token = sign(
+      { userId: user.id, roles: roles },
+      process.env.SIGN_KEY,
+      {
+        expiresIn: "1h",
+      }
+    );
+
+    return { user, token };
   },
 };

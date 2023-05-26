@@ -1,10 +1,5 @@
 require("dotenv").config();
-const { compareSync, genSaltSync, hashSync } = require("bcrypt");
-const { sign } = require("jsonwebtoken");
-const User = require("../models/User");
-const UserRole = require("../models/UserRole");
 const userService = require("../services/userService");
-const generic = require("../../../archive/endpoints/common/utils/generic.controller.helper");
 
 module.exports = {
   createUser: async (req, res) => {
@@ -87,15 +82,7 @@ module.exports = {
   login: async (req, res) => {
     try {
       const { email, password } = req.body;
-      const user = await userService.login(email, password);
-
-      const token = sign(
-        { userId: user.id, userRoles: user.UserRole },
-        process.env.SIGN_KEY,
-        {
-          expiresIn: "1h",
-        }
-      );
+      const { token } = await userService.login(email, password);
 
       return res.status(200).json({
         success: 1,

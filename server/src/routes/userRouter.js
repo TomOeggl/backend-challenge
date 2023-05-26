@@ -2,6 +2,7 @@ const router = require("express").Router();
 const { checkToken } = require("../middleware/tokenValidation");
 const { requireAdmin } = require("../middleware/adminValidation");
 const { requireEditor } = require("../middleware/editorValidation");
+const { requireRole } = require("../middleware/roleValidation");
 const {
   createUser,
   getUserById,
@@ -11,14 +12,14 @@ const {
   getAllUsers,
 } = require("../controllers/userController");
 
-router.post("/", requireEditor, createUser);
+router.post("/", requireRole("editor"), createUser);
 router.post("/login", login);
 
-router.get("/", requireEditor, getAllUsers);
-router.get("/:id", requireAdmin, getUserById);
+router.get("/", requireRole("admin"), getAllUsers);
+router.get("/:id", requireRole("self", "admin"), getUserById);
 
-router.patch("/", checkToken, updateUser);
+router.patch("/", requireRole("editor"), updateUser);
 
-router.delete("/:id", requireAdmin, deleteUser);
+router.delete("/:id", requireRole("admin"), deleteUser);
 
 module.exports = router;
