@@ -5,3 +5,6 @@ start
 TODO
 TODO
 .vscode
+archive
+.nuxt
+server/.nuxt/routes.json
