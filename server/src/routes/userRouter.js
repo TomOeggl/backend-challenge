@@ -15,7 +15,7 @@ const {
 router.post("/", requireRole("editor"), createUser);
 router.post("/login", login);
 
-router.get("/", requireRole("admin"), getAllUsers);
+router.get("/", getAllUsers);
 router.get("/:id", requireRole("self", "admin"), getUserById);
 
 router.patch("/", requireRole("editor"), updateUser);
