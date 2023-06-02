@@ -41,7 +41,6 @@
     },
     async created() {
       const response = await axios.get('http://localhost:9000/api/events');
-      console.log(response.data)
       this.events = response.data.data;
     },
   }
