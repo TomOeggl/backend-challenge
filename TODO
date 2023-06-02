@@ -1,6 +1,2 @@
-create event view
-
-
-user roles in tabelle auslagern
-links auslagern
-location auslagern
+Add basic versions of each page to test api integration, login and pagination.
+Prototype CMS.

@@ -23,7 +23,6 @@
         </section>
       </main>
   
-      <!-- Footer -->
       <footer>
         <p>© 2023 soundlabs vienna. All rights reserved.</p>
       </footer>
