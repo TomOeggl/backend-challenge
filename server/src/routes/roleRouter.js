@@ -6,12 +6,12 @@ const {
   assignRoleToUser,
   unassignRoleFromUser,
 } = require("../controllers/roleController");
-const { requireAdmin } = require("../middleware/adminValidation");
+const { requireRole } = require("../middleware/roleValidation");
 
-router.post("/", createRole);
-router.get("/", getAllRoles);
-router.get("/:id", getRoleById);
-router.post("/assign", assignRoleToUser);
-router.post("/unassign", requireAdmin, unassignRoleFromUser);
+router.post("/", requireRole("admin"), createRole);
+router.get("/", requireRole("admin"), getAllRoles);
+router.get("/:id", requireRole("admin"), getRoleById);
+router.post("/assign", requireRole("admin"), assignRoleToUser);
+router.post("/unassign", requireRole("admin"), unassignRoleFromUser);
 
 module.exports = router;

@@ -1,7 +1,6 @@
 require('dotenv').config();
 const express = require('express');
 const { Nuxt, Builder, loadNuxt } = require('nuxt');
-const path = require("path");
 const sequelize = require("./src/config/sequelize");
 const defineAssociatons = require("./src/models/associations");
 
@@ -36,7 +35,7 @@ app.use("/api/roles", roleRouter);
 app.use("/api/artists", artistRouter);
 
 const config = require('../client/nuxt.config.js');
-config.dev = !(process.env.NODE_ENV === 'production');
+config.dev = process.env.NODE_ENV !== 'production';
 const nuxt = new Nuxt(config);
 
 

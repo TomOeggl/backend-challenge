@@ -1,7 +1,6 @@
 const router = require("express").Router();
 const { checkToken } = require("../middleware/tokenValidation");
-const { requireAdmin } = require("../middleware/adminValidation");
-const { requireEditor } = require("../middleware/editorValidation");
+const { requireRole } = require("../middleware/roleValidation");
 const {
   createArtist,
   getArtistById,
@@ -10,13 +9,13 @@ const {
   getAllArtists,
 } = require("../controllers/artistController");
 
-router.post("/", checkToken, requireEditor, createArtist);
+router.post("/", checkToken, createArtist);
 
-router.get("/", requireEditor, getAllArtists);
-router.get("/:id", requireAdmin, getArtistById);
+router.get("/", checkToken, getAllArtists);
+router.get("/:id", requireRole("admin"), getArtistById);
 
-router.patch("/:id", checkToken, requireEditor, updateArtist);
+router.patch("/:id", checkToken, requireRole("self", "editor", "admin"), updateArtist);
 
-router.delete("/:id", checkToken, requireAdmin, deleteArtist);
+router.delete("/:id", checkToken, requireRole("admin"), deleteArtist);
 
 module.exports = router;
