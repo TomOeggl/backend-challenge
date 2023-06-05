@@ -1,12 +1,9 @@
 <template>
     <div>
-      <section class="banner">
-        <h1>Login</h1>
-        <p>Welcome back! Please login to continue.</p>
-      </section>
 
-      <main>
-        <form @submit.prevent="login">
+      <main class="login-container">
+        <p>Welcome back! Please login to continue.</p>
+        <form class="login-form" @submit.prevent="login">
           <label for="email">Email:</label>
           <input type="email" id="email" v-model="email" required>
   
@@ -50,6 +47,18 @@
   </script>
   
   <style scoped>
-  
+  .login-container {
+    width: 300px;
+    margin: 0 auto;
+  }
+  .login-form {
+    display: flex;
+    flex-direction: column;
+  }
+  .login-form > * {
+    margin: 4px 0;
+
+  }
+
   </style>
   

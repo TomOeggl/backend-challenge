@@ -1,11 +1,11 @@
 <template>
-    <div>
-      <Banner />
-      <PublicNav />
-      <nuxt />
-      <Footer />
-    </div>
-  </template>
+  <div class="wrapper">
+    <Banner class="page-header" />
+    <PublicNav />
+    <nuxt class="page-body" />
+    <Footer class="page-footer" />
+  </div>
+</template>
 
 <script>
 import PublicNav from '../components/PublicNav.vue';
@@ -15,14 +15,13 @@ import Banner from '../components/Banner.vue';
 export default {
   components: {
     PublicNav,
+    Banner,
     Footer,
-    Banner
   }
 };
 </script>
 
-<style >
-
+<style>
 *,
 *::before,
 *::after {
@@ -32,10 +31,30 @@ export default {
   text-decoration: none;
 }
 
+html,
 body {
-  margin: 0px;
-  padding: 0px;
-  background-color: #f5f5f5; 
+  height: 100%;
+  padding: 0;
+  margin: 0;
 }
 
-</style>
+.wrapper {
+  box-sizing: border-box;
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.page-body {
+  flex-grow: 1;
+  margin: 0 auto;
+  min-height: 90vh;
+  width: 80%;
+
+}
+
+.page-header,
+.page-footer {
+  flex-grow: 0;
+  flex-shrink: 0;
+}</style>
