@@ -4,17 +4,6 @@
         <h1>Login</h1>
         <p>Welcome back! Please login to continue.</p>
       </section>
-  
-      <nav>
-        <ul>
-          <li><nuxt-link to="/">Home</nuxt-link></li>
-          <li><nuxt-link to="/team">Team</nuxt-link></li>
-          <li><nuxt-link to="/events">Events</nuxt-link></li>
-          <li><nuxt-link to="/about">About</nuxt-link></li>
-          <li><nuxt-link to="/login">Login</nuxt-link></li>
-        </ul>
-      </nav>
-  
 
       <main>
         <form @submit.prevent="login">
@@ -29,10 +18,6 @@
         <p v-if="errorMessage">{{ errorMessage }}</p>
       </main>
   
-
-      <footer>
-        <p>© 2023 soundlabs vienna. All rights reserved.</p>
-      </footer>
     </div>
   </template>
   
@@ -55,7 +40,7 @@
             password: this.password,
           });
           localStorage.setItem('authToken', response.data.token);
-          this.$router.push('/dashboard');
+          this.$router.push('/cms/dashboard');
         } catch (error) {
           this.errorMessage = 'Invalid email or password. Please try again.';
         }

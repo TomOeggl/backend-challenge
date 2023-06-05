@@ -4,17 +4,6 @@
         <h1>Our Events</h1>
         <p>Check out our upcoming events!</p>
       </section>
-  
-      <nav>
-        <ul>
-          <li><nuxt-link to="/">Home</nuxt-link></li>
-          <li><nuxt-link to="/team">Team</nuxt-link></li>
-          <li><nuxt-link to="/events">Events</nuxt-link></li>
-          <li><nuxt-link to="/about">About</nuxt-link></li>
-          <li><nuxt-link to="/login">Login</nuxt-link></li>
-        </ul>
-      </nav>
-  
 
       <main>
         <section v-for="event in events" :key="event.id">
@@ -22,10 +11,6 @@
           <p>{{ event.description }}</p>
         </section>
       </main>
-  
-      <footer>
-        <p>© 2023 soundlabs vienna. All rights reserved.</p>
-      </footer>
     </div>
   </template>
   
@@ -46,5 +31,6 @@
   </script>
   
   <style scoped>
+
   </style>
   

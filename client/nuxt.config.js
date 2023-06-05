@@ -2,6 +2,7 @@ module.exports = {
     ssr: true,
     telemetry: false,
     srcDir: "../client",
+    components: true,
    
    
     head: {
