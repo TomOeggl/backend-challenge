@@ -1,5 +1,6 @@
 require("dotenv").config();
 const userService = require("../services/userService");
+const tokenBlacklist = require('../middleware/tokenBlacklist');
 
 module.exports = {
   createUser: async (req, res) => {
@@ -104,5 +105,10 @@ module.exports = {
         message: message,
       });
     }
+  },
+  logout: (req, res) => {
+    const token = req.headers.authorization.split(' ')[1];
+    tokenBlacklist.addToBlacklist(token);
+    res.status(200).json({ message: 'Logged out' });
   },
 };

@@ -3,11 +3,12 @@ const express = require('express');
 const { Nuxt, Builder, loadNuxt } = require('nuxt');
 const sequelize = require("./src/config/sequelize");
 const defineAssociatons = require("./src/models/associations");
-
+const path = require('path');
 const userRouter = require("./src/routes/userRouter");
 const eventRouter = require("./src/routes/eventRouter");
 const roleRouter = require("./src/routes/roleRouter");
 const artistRouter = require("./src/routes/artistRouter");
+const memberRouter = require("./src/routes/memberRouter");
 
 const app = express();
 
@@ -33,6 +34,8 @@ app.use("/api/users", userRouter);
 app.use("/api/events", eventRouter);
 app.use("/api/roles", roleRouter);
 app.use("/api/artists", artistRouter);
+app.use("/api/members", memberRouter);
+app.use('/uploads', express.static(path.join(__dirname, 'public/uploads')));
 
 const config = require('../client/nuxt.config.js');
 config.dev = process.env.NODE_ENV !== 'production';

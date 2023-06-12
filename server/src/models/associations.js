@@ -6,6 +6,7 @@ const LinkCollection = require("./LinkCollection");
 const Location = require("./Location");
 const Event = require("./Event");
 const EventType = require("./EventType");
+const TeamMember = require("./TeamMember");
 
 function defineAssociations() {
   User.hasMany(Artist);
