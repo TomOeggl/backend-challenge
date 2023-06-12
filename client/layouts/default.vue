@@ -2,7 +2,7 @@
   <div class="wrapper">
     <Banner class="page-header" />
     <PublicNav />
-    <nuxt class="page-body" />
+    <nuxt class="content" />
     <Footer class="page-footer" />
   </div>
 </template>
@@ -29,6 +29,7 @@ export default {
   padding: 0px;
   margin: 0px;
   text-decoration: none;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 html,
@@ -39,22 +40,15 @@ body {
 }
 
 .wrapper {
-  box-sizing: border-box;
-  min-height: 100%;
   display: flex;
   flex-direction: column;
+  min-height: 100vh;
 }
 
-.page-body {
-  flex-grow: 1;
+.content {
+  flex: 1;
   margin: 0 auto;
-  min-height: 90vh;
   width: 80%;
 
 }
-
-.page-header,
-.page-footer {
-  flex-grow: 0;
-  flex-shrink: 0;
-}</style>
+</style>

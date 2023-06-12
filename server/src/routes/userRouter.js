@@ -12,11 +12,12 @@ const {
 } = require("../controllers/userController");
 const tokenBlacklist = require('../middleware/tokenBlacklist');
 
-router.post('/logout', logout);
-router.use(tokenBlacklist.checkBlacklist);
 
 router.post("/", requireRole("editor"), createUser);
 router.post("/login", login);
+
+router.post('/logout', logout);
+router.use(tokenBlacklist.checkBlacklist);
 
 router.get("/", getAllUsers);
 router.get("/:id", requireRole("self", "admin"), getUserById);

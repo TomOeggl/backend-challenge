@@ -11,7 +11,7 @@ module.exports = {
       where: { id: id },
       include: [{ model: Role }],
     });
-    user.password = undefined;
+    //user.password = undefined;
     return user;
   },
   getAllUsers: async () => {
@@ -100,6 +100,8 @@ module.exports = {
         expiresIn: "1h",
       }
     );
+
+    console.log(token);
 
     return { user, token };
   },
