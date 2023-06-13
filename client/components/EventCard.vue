@@ -1,5 +1,5 @@
 <template>
-  <router-link :to="`/event/${eventId}`" class="card">
+  <router-link :to="`/events/${id}`" class="card">
     <img :src="image" alt="Card image" />
     <div class="card-body">
       <h5 class="card-title">{{ name }}</h5>
@@ -13,6 +13,10 @@
 <script>
 export default {
   props: {
+    id: {
+      type: Number,
+      required: true
+    },
     name: {
       type: String,
       required: true

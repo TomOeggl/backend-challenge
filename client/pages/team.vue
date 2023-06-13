@@ -2,18 +2,29 @@
     <div>
   
       <main>
-        <TeamCard name="Marlene Kugeltrum" description="I'm a walking rainbow." imageLink="https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=461&q=80"/>
+        <TeamCard v-for="member in members" :key="member.id" :name="member.name" :description="member.description" :imageLink="member.imageLink"/>
       </main>
     </div>
   </template>
   
   <script>
+  import axios from 'axios';
   import TeamCard from '../components/TeamCard.vue'
 
   export default {
     components: {
       TeamCard
-    }
+    },
+    data() {
+      return {
+        members: [],
+      };
+    },
+    async created() {
+      const response = await axios.get('http://localhost:9000/api/members');
+      this.members = response.data.data;
+      console.log(this.members);
+    },
 
   }
   </script>
