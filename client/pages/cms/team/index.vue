@@ -26,6 +26,7 @@
   
   export default {
     layout: 'dashboardLayout',
+    middleware: 'authenticated',
     data() {
       return {
         teamMembers: [],
@@ -35,7 +36,6 @@
       try {
         const response = await axios.get('http://localhost:9000/api/members');
         this.teamMembers = response.data.data;
-        console.log(this.teamMembers);
       } catch (error) {
         console.error('Failed to fetch team members:', error);
       }

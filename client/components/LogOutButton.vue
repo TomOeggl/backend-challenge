@@ -6,24 +6,19 @@
 export default {
     methods: {
         async logout() {
-            try{
-            await this.$axios.$post('/api/users/logout', {}, {
-                headers: {
-                    Authorization: `${this.$auth.getToken('local')}`
+            try {
+                await this.$auth.logout();
+                await this.$router.push('/cms/login');
+            } catch (error) {
+                console.log("Failed to log out:", error.message);
             }
-            });
-            await this.$auth.logout();
-            this.$router.push('/');
-        } catch (error){
-            console.log("Failed to log out:", error);
         }
-    }}
+    }
 }
 
 </script>
   
 <style scoped>
-
 .btn__logout {
     border: none;
     border-radius: 4px;
@@ -31,5 +26,4 @@ export default {
     background-color: red;
     font-weight: 700;
 }
-
 </style>

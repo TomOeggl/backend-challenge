@@ -18,13 +18,7 @@ module.exports = {
     },
     
     loading: { color: '#fff' },
-    
-    css: [
-    ],
-    
-    plugins: [
-    ],
-    
+   
     modules: [
       '@nuxtjs/axios',
       '@nuxtjs/auth',
@@ -39,15 +33,15 @@ module.exports = {
         local: {
           endpoints: {
             login: { url: '/api/users/login', method: 'post', propertyName: 'token' },
+            user: { url: '/api/users/login', method: 'post', propertyName: 'user' },
             logout: { url: '/api/users/logout', method: 'post' },
-            user: { url: '/api/users/me', method: 'get', propertyName: 'user' }
           },
           tokenRequired: true,
           tokenType: 'bearer'
         }
       },
       redirect: {
-        logout: '/login',
+        logout: '/cms/login',
       }
     },
     

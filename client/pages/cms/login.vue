@@ -32,7 +32,6 @@ export default {
   methods: {
     async login() {
       try {
-        console.log(this.email, this.password);
         await this.$auth.loginWith('local', {
           data: {
             email: this.email,

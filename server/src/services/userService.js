@@ -1,7 +1,8 @@
 const User = require("../models/User");
 const Role = require("../models/Role");
 const { compareSync, genSaltSync, hashSync } = require("bcrypt");
-const { sign } = require("jsonwebtoken");
+const { sign, verify } = require("jsonwebtoken");
+require("dotenv").config();
 
 module.exports = {
   getUserById: async (req, res) => {
@@ -73,7 +74,8 @@ module.exports = {
 
     return await user.destroy();
   },
-  login: async (email, password) => {
+  login: async (email, password, token) => {
+    if(email && password){
     const user = await User.findOne({
       where: { email },
       include: [{ model: Role }],
@@ -93,16 +95,35 @@ module.exports = {
 
     const roles = user.Roles.map((role) => role.name);
 
-    const token = sign(
+    const newToken = sign(
       { userId: user.id, roles: roles },
       process.env.SIGN_KEY,
       {
         expiresIn: "1h",
       }
     );
+    return { token: newToken };
 
-    console.log(token);
-
-    return { user, token };
+    } else if (token) {
+      token = token.slice(7);
+      let id;
+      verify(token, process.env.SIGN_KEY, (err, decoded) => {
+        if (err) {
+          res.json({
+            success: 0,
+            message: "Invalid token",
+          });
+        } else {
+          id = decoded.userId;
+        }
+        
+      });
+      const user = await User.findOne({
+        where: { id },
+        include: [{ model: Role }],
+      });
+      return {user: user};
+    
+    }
   },
 };
