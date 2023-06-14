@@ -31,21 +31,47 @@ module.exports = {
 
     return events;
   },
+  getAllPublicEvents: async () => {
+    const events = await Event.findAll({
+      where: {
+        published: true
+      },
+      include: [
+        { model: EventType },
+        { model: Location },
+        { model: Artist },
+      ],
+    });
+  
+    return events;
+  },  
   createEvent: async (eventData) => {
     const { eventTypeId, locationId, artistIds, ...rest } = eventData;
     const event = await Event.create(rest);
 
-    const eventType = await EventType.findByPk(eventTypeId);
-    const location = await Location.findByPk(locationId);
-    const artists = await Artist.findAll({ where: { id: artistIds } });
-
-    if (!eventType || !location || artists.length !== artistIds.length) {
-      throw new Error("Related entities not found");
+    if (eventTypeId) {
+      const eventType = await EventType.findByPk(eventTypeId);
+      if (!eventType) {
+        throw new Error("EventType not found");
+      }
+      await event.setEventType(eventType);
     }
-
-    await event.setEventType(eventType);
-    await event.setLocation(location);
-    await event.setArtists(artists);
+  
+    if (locationId) {
+      const location = await Location.findByPk(locationId);
+      if (!location) {
+        throw new Error("Location not found");
+      }
+      await event.setLocation(location);
+    }
+  
+    if (artistIds) {
+      const artists = await Artist.findAll({ where: { id: artistIds } });
+      if (artists.length !== artistIds.length) {
+        throw new Error("One or more Artists not found");
+      }
+      await event.setArtists(artists);
+    }
 
     return event;
   },

@@ -8,7 +8,7 @@
       <main>
         <div class="event-container">
 
-          <EventCard v-for="event in events" :key="event.id" :id="event.id" :name="event.name" :description="event.description" :startDateAndTime="event.startDateAndTime" image="https://images.unsplash.com/photo-1555086156-e6c7353d283f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80"/>        
+          <EventCard v-for="event in events" :key="event.id" :id="event.id" :name="event.name" :description="event.description" :startDateAndTime="event.startDateAndTime" :image="event.image"/>        
         </div>
       </main>
     </div>
@@ -28,7 +28,7 @@
       };
     },
     async created() {
-      const response = await axios.get('http://localhost:9000/api/events');
+      const response = await axios.get('http://localhost:9000/api/events/public');
       this.events = response.data.data;
       console.log(this.events);
     },

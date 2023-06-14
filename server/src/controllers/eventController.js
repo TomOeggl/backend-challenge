@@ -31,6 +31,21 @@ module.exports = {
       });
     }
   },
+  getAllPublicEvents: async (req, res) => {
+    try {
+      const events = await eventService.getAllPublicEvents();
+      res.status(200).json({
+        success: 1,
+        data: events,
+      });
+    } catch (error) {
+      console.error("Error during request:", error);
+      res.status(500).json({
+        success: 0,
+        message: "Failed to get public events",
+      });
+    }
+  },
   createEvent: async (req, res) => {
     try {
       const event = await eventService.createEvent(req.body);
@@ -47,8 +62,21 @@ module.exports = {
       });
     }
   },
+  async uploadImage (req, res) {
+    try {
+      const fileUrl = req.protocol + '://' + req.get('host') + '/uploads/' + req.file.filename;
+      res.json({ url: fileUrl });
+    } catch (error) {
+      console.error('Failed to upload image:', error);
+      res.status(500).json({
+        success: 0,
+        message: "Failed to upload image",
+      });
+    }
+  },
   updateEvent: async (req, res) => {
     try {
+      console.log("Update event called");
       const event = await eventService.updateEvent(req.params.id, req.body);
       res.status(200).json({
         success: 1,

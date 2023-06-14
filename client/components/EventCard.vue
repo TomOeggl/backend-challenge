@@ -65,6 +65,7 @@ export default {
 
 .card-body {
   padding: 15px;
+  max-height: 15rem;
 }
 
 .card-title {
@@ -74,6 +75,12 @@ export default {
 
 .card-text {
   font-size: 1rem;
+  white-space: pre-wrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
 }
 </style>
   

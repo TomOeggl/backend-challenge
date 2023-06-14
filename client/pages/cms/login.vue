@@ -38,7 +38,7 @@ export default {
             password: this.password,
           },
         });
-        this.$router.push('/cms/dashboard');
+        this.$router.push('/cms/');
       } catch (error) {
         this.errorMessage = 'Invalid email or password. Please try again.';
       }

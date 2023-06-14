@@ -1,6 +1,6 @@
 <template>
     <main>
-        <SingleEvent v-if="!loading" :key="event.id"  :name="event.name" :description="event.description" :startDateAndTime="event.startDateAndTime" />
+        <SingleEvent v-if="!loading" :key="event.id"  :name="event.name" :description="event.description" :startDateAndTime="event.startDateAndTime" :image="event.image" />
     </main>
 </template>
 

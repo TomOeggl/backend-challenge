@@ -46,6 +46,13 @@ const Event = sequelize.define("Event", {
   ticketLink: {
     type: DataTypes.STRING(255),
   },
+  image: {
+    type: DataTypes.STRING(255),
+  },
+  published: {
+    type: DataTypes.BOOLEAN,
+    defaultValue: false,
+  }
 });
 
 module.exports = Event;

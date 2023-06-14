@@ -5,7 +5,7 @@
             <h2 class="event__title">{{ name }}</h2>
             <span class="event__startDate">{{ convertedStartDate }}</span>
             <span class="event__startTime">{{ convertedStartTime }}</span>
-            <p class="event__text">{{ description }}</p>
+            <p class="event__description">{{ description }}</p>
         </div>
     </main>
 </template>
@@ -15,7 +15,7 @@ export default {
     props: {
         id: {
             type: Number,
-            required: true
+            required: false
         },
         name: {
             type: String,
@@ -60,6 +60,10 @@ export default {
 }
 .event__title{
     font-size: 1.5rem;
+}
+
+.event__description{
+    white-space: pre-wrap;
 }
 
 </style>
