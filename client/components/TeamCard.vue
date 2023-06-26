@@ -38,7 +38,8 @@ export default {
 
 .card img {
   width: 100%;
-  height: auto;
+  height: 10rem;
+  object-fit: cover;
 }
 
 .card-body {

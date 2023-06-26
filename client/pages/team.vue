@@ -2,7 +2,10 @@
     <div>
   
       <main>
-        <TeamCard v-for="member in members" :key="member.id" :name="member.name" :description="member.description" :imageLink="member.imageLink"/>
+        <h2>Our Team</h2>
+        <div class="member__container">
+          <TeamCard v-for="member in members" :key="member.id" :name="member.name" :description="member.description" :imageLink="member.imageLink"/>
+        </div>
       </main>
     </div>
   </template>
@@ -30,6 +33,12 @@
   </script>
   
   <style scoped>
+
+  .member__container{
+    margin-top: 1rem;
+    display: flex;
+    justify-content: space-between;
+  }
 
   </style>
   
