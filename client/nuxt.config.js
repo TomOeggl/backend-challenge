@@ -22,6 +22,8 @@ module.exports = {
     modules: [
       '@nuxtjs/axios',
       '@nuxtjs/auth',
+      '@chakra-ui/nuxt',
+      '@nuxtjs/emotion'
     ],
     
     axios: {

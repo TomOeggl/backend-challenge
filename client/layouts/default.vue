@@ -1,22 +1,29 @@
 <template>
-  <div class="wrapper">
-    <Banner class="page-header" />
-    <PublicNav />
-    <nuxt class="content" />
-    <Footer class="page-footer" />
-  </div>
+  <CThemeProvider>
+    <div class="wrapper">
+      <Banner class="page-header" />
+      <PublicNav />
+      <nuxt class="content" />
+      <Footer class="page-footer" />
+    </div>
+  </CThemeProvider>
 </template>
 
 <script>
 import PublicNav from '../components/PublicNav.vue';
 import Footer from '../components/Footer.vue';
 import Banner from '../components/Banner.vue';
+import { CThemeProvider, CReset, CButton } from '@chakra-ui/vue'
 
 export default {
+  name:'DefaultLayout',
   components: {
     PublicNav,
     Banner,
     Footer,
+    CThemeProvider,
+    CReset,
+    CButton
   }
 };
 </script>

@@ -13,6 +13,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@chakra-ui/nuxt": "^0.7.1",
+    "@nuxtjs/emotion": "^0.1.0",
     "axios": "^1.4.0",
     "nuxt": "^2.15.4",
     "vue": "^2.7.14"
